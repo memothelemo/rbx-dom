@@ -19,6 +19,12 @@ pub struct Axes {
     flags: AxisFlags,
 }
 
+impl Default for Axes {
+    fn default() -> Self {
+        Self::empty()
+    }
+}
+
 impl Axes {
     pub const X: Self = Self {
         flags: AxisFlags::X,

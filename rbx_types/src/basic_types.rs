@@ -30,7 +30,7 @@ impl Enum {
 /// ## See Also
 /// * [`Vector2int16`][struct.Vector2int16.html]
 /// * [Vector2 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct Vector2 {
     pub x: f32,
     pub y: f32,
@@ -50,7 +50,7 @@ impl Vector2 {
 /// * [Vector2int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector2int16)
 ///
 /// [Vector2]: struct.Vector2.html
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Vector2int16 {
     pub x: i16,
     pub y: i16,
@@ -67,7 +67,7 @@ impl Vector2int16 {
 /// ## See Also
 /// * [`Vector3int16`][struct.Vector3int16.html]
 /// * [Vector3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct Vector3 {
     pub x: f32,
     pub y: f32,
@@ -131,7 +131,7 @@ impl Vector3 {
 /// * [Vector3int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Vector3int16)
 ///
 /// [Vector3]: struct.Vector3.html
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Vector3int16 {
     pub x: i16,
     pub y: i16,
@@ -148,7 +148,7 @@ impl Vector3int16 {
 ///
 /// ## See Also
 /// * [CFrame on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/CFrame)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -170,7 +170,7 @@ impl CFrame {
 
 /// Used to represent the `orientation` field of `CFrame` and not a standalone
 /// type in Roblox.
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct Matrix3 {
     pub x: Vector3,
     pub y: Vector3,
@@ -205,7 +205,7 @@ impl Matrix3 {
 /// * [`Color3uint8`](struct.Color3uint8.html), which is used instead of
 ///   `Color3` on some types and does not represent HDR colors.
 /// * [Color3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Color3)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct Color3 {
     pub r: f32,
     pub g: f32,
@@ -238,7 +238,7 @@ impl From<Color3uint8> for Color3 {
 ///   colors.
 ///
 /// [BasePart.Color]: https://developer.roblox.com/en-us/api-reference/property/BasePart/Color
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Color3uint8 {
     pub r: u8,
     pub g: u8,
@@ -269,7 +269,7 @@ impl From<Color3> for Color3uint8 {
 /// * [Ray on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Ray)
 ///
 /// [FindPartOnRay]: https://developer.roblox.com/en-us/api-reference/function/WorldRoot/FindPartOnRay
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -291,7 +291,7 @@ impl Ray {
 /// ## See Also
 /// * [`Region3int16`](struct.Region3int16.html)
 /// * [Region3 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Region3)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct Region3 {
     pub min: Vector3,
     pub max: Vector3,
@@ -311,7 +311,7 @@ impl Region3 {
 /// * [Region3int16 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Region3int16)
 ///
 /// [Region3]: struct.Region3.html
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Region3int16 {
     pub min: Vector3int16,
     pub max: Vector3int16,
@@ -327,7 +327,7 @@ impl Region3int16 {
 ///
 /// ## See Also
 /// * [Rect on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/Rect)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct Rect {
     pub min: Vector2,
     pub max: Vector2,
@@ -344,7 +344,7 @@ impl Rect {
 ///
 /// ## See Also
 /// * [UDim on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/UDim)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct UDim {
     pub scale: f32,
     pub offset: i32,
@@ -361,7 +361,7 @@ impl UDim {
 ///
 /// ## See Also
 /// * [UDim2 on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/UDim2)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct UDim2 {
     pub x: UDim,
     pub y: UDim,
@@ -377,7 +377,7 @@ impl UDim2 {
 ///
 /// ## See Also
 /// * [NumberRange on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/NumberRange)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub struct NumberRange {
     pub min: f32,
     pub max: f32,
@@ -393,7 +393,7 @@ impl NumberRange {
 ///
 /// ## See Also
 /// * [ColorSequence on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/ColorSequence)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Default, Debug, Clone, PartialEq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),
@@ -431,7 +431,7 @@ impl ColorSequenceKeypoint {
 ///
 /// ## See Also
 /// * [NumberSequence on Roblox Developer Hub](https://developer.roblox.com/en-us/api-reference/datatype/NumberSequence)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Default, Debug, Clone, PartialEq)]
 #[cfg_attr(
     feature = "serde",
     derive(serde::Serialize, serde::Deserialize),

@@ -22,6 +22,12 @@ pub struct Faces {
     flags: FaceFlags,
 }
 
+impl Default for Faces {
+    fn default() -> Self {
+        Self::empty()
+    }
+}
+
 impl Faces {
     pub const RIGHT: Self = Self {
         flags: FaceFlags::RIGHT,

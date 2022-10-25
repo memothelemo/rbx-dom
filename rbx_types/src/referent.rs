@@ -9,6 +9,12 @@ use std::str::FromStr;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Ref(Option<NonZeroU128>);
 
+impl Default for Ref {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Ref {
     /// Generate a new random `Ref`.
     #[inline]
