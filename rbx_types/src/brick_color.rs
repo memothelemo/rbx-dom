@@ -22,6 +22,49 @@ macro_rules! make_brick_color {
             $($enum = $value,)+
         }
 
+        #[cfg(feature = "mlua")]
+        #[allow(unreachable_patterns)]
+        impl mlua::UserData for BrickColor {
+            fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(fields: &mut F) {
+                fields.add_field_method_get("Name", |lua, this| {
+                    match this {
+                        $(Self::$enum => lua.create_string($name),)+
+                        _ => panic!("Oh no!"),
+                    }
+                });
+                fields.add_field_method_get("Color", |_lua, this| {
+                    match this {
+                        $(Self::$enum => Ok(crate::Color3::new($color3_r as f32, $color3_g as f32, $color3_b as f32)),)+
+                        _ => panic!("Oh no!"),
+                    }
+                });
+                fields.add_field_method_get("Number", |_lua, this| {
+                    match this {
+                        $(Self::$enum => Ok($value),)+
+                        _ => panic!("Oh no!"),
+                    }
+                });
+                fields.add_field_method_get("r", |_lua, this| {
+                    match this {
+                        $(Self::$enum => Ok($color3_r),)+
+                        _ => panic!("Oh no!"),
+                    }
+                });
+                fields.add_field_method_get("g", |_lua, this| {
+                    match this {
+                        $(Self::$enum => Ok($color3_g),)+
+                        _ => panic!("Oh no!"),
+                    }
+                });
+                fields.add_field_method_get("b", |_lua, this| {
+                    match this {
+                        $(Self::$enum => Ok($color3_b),)+
+                        _ => panic!("Oh no!"),
+                    }
+                });
+            }
+        }
+
         impl BrickColor {
             /// Find the first BrickColor with the given name, if it exists.
             ///

@@ -1,3 +1,6 @@
+#[allow(unused)]
+use crate::utils::lerp;
+
 /// Represents any Roblox enum value.
 ///
 /// Roblox enums are not strongly typed, so the meaning of a value depends on
@@ -42,6 +45,18 @@ impl Vector2 {
     }
 }
 
+#[cfg(feature = "mlua")]
+impl mlua::UserData for Vector2 {
+    fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(fields: &mut F) {
+        fields.add_field_method_get("X", |_lua, this| Ok(this.x));
+        fields.add_field_method_get("Y", |_lua, this| Ok(this.y));
+
+        fields.add_field_method_get("Magnitude", |_lua, this| {
+            Ok(f32::sqrt(this.x.powi(2) + this.y.powi(2)))
+        });
+    }
+}
+
 /// A version of [`Vector2`][Vector2] whose coordinates are signed 16-bit
 /// integers.
 ///
@@ -62,6 +77,18 @@ impl Vector2int16 {
     }
 }
 
+#[cfg(feature = "mlua")]
+impl mlua::UserData for Vector2int16 {
+    fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(fields: &mut F) {
+        fields.add_field_method_get("X", |_lua, this| Ok(this.x));
+        fields.add_field_method_get("Y", |_lua, this| Ok(this.y));
+
+        fields.add_field_method_get("Magnitude", |_lua, this| {
+            Ok(f32::sqrt((this.x.pow(2) + this.y.pow(2)).into()))
+        });
+    }
+}
+
 /// The standard 3D vector type used in Roblox.
 ///
 /// ## See Also
@@ -72,6 +99,19 @@ pub struct Vector3 {
     pub x: f32,
     pub y: f32,
     pub z: f32,
+}
+
+#[cfg(feature = "mlua")]
+impl mlua::UserData for Vector3 {
+    fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(fields: &mut F) {
+        fields.add_field_method_get("X", |_lua, this| Ok(this.x));
+        fields.add_field_method_get("Y", |_lua, this| Ok(this.y));
+        fields.add_field_method_get("Z", |_lua, this| Ok(this.z));
+
+        fields.add_field_method_get("Magnitude", |_lua, this| {
+            Ok(f32::sqrt(this.x.powi(2) + this.y.powi(2) + this.z.powi(2)))
+        });
+    }
 }
 
 fn approx_unit_or_zero(value: f32) -> Option<i32> {
@@ -141,6 +181,21 @@ pub struct Vector3int16 {
 impl Vector3int16 {
     pub fn new(x: i16, y: i16, z: i16) -> Self {
         Self { x, y, z }
+    }
+}
+
+#[cfg(feature = "mlua")]
+impl mlua::UserData for Vector3int16 {
+    fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(fields: &mut F) {
+        fields.add_field_method_get("X", |_lua, this| Ok(this.x));
+        fields.add_field_method_get("Y", |_lua, this| Ok(this.y));
+        fields.add_field_method_get("Z", |_lua, this| Ok(this.z));
+
+        fields.add_field_method_get("Magnitude", |_lua, this| {
+            Ok(f32::sqrt(
+                (this.x.pow(2) + this.y.pow(2) + this.z.pow(2)).into(),
+            ))
+        });
     }
 }
 
@@ -215,6 +270,51 @@ pub struct Color3 {
 impl Color3 {
     pub fn new(r: f32, g: f32, b: f32) -> Self {
         Self { r, g, b }
+    }
+}
+
+#[cfg(feature = "mlua")]
+impl mlua::UserData for Color3 {
+    fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(fields: &mut F) {
+        fields.add_field_method_get("R", |_lua, this| Ok(this.r));
+        fields.add_field_method_get("G", |_lua, this| Ok(this.g));
+        fields.add_field_method_get("B", |_lua, this| Ok(this.b));
+    }
+
+    fn add_methods<'lua, M: mlua::UserDataMethods<'lua, Self>>(methods: &mut M) {
+        methods.add_method("Lerp", |_lua, this, (color, alpha): (Color3, f32)| {
+            let r = lerp!(this.r, color.r, alpha);
+            let g = lerp!(this.g, color.g, alpha);
+            let b = lerp!(this.b, color.b, alpha);
+            Ok(Self::new(r, g, b))
+        });
+        methods.add_method("ToHex", |_lua, this, _: ()| {
+            let r = (this.r * 255.) as u8;
+            let g = (this.g * 255.) as u8;
+            let b = (this.b * 255.) as u8;
+            Ok(hex::encode([r, g, b]))
+        });
+        methods.add_method("ToHSV", |_lua, this, _: ()| {
+            let max = this.r.max(this.g.max(this.b));
+            let min = this.r.max(this.g.max(this.b));
+
+            let Color3 { r, g, b } = *this;
+
+            let mut hue = 0.;
+            let c = max - min;
+            let k = 1. / (6. * c);
+
+            if c != 0. {
+                hue = match max {
+                    v if v == r => ((g - b) * k) % 1.,
+                    v if v == g => ((b - r) * k) + (1. / 3.),
+                    _ => ((r - g) * k) + (2. / 3.),
+                };
+            }
+
+            let sat = if max == 0. { 0. } else { c / max };
+            Ok((hue, sat, max))
+        });
     }
 }
 

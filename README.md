@@ -2,24 +2,30 @@
 	<img width="400" src="rbx-dom-logo.png" />
 </div>
 
-<h1 align="center">rbx-dom</h1>
+<h1 align="center">rbx-dom (Forked)</h1>
 <div align="center">
 	<a href="https://github.com/rojo-rbx/rbx-dom/actions">
 		<img title="GitHub Actions" src="https://github.com/rojo-rbx/rbx-dom/workflows/CI/badge.svg" />
 	</a>
 </div>
 
+This forked repository is designed and powered for [memothelemo](https://github.com/memothelemo)'s [Ribbon](https://github.com/memothelemo/ribbon) project.
+
+<h2>Original Description</h2>
+
 rbx-dom is a collection of cross-platform libraries that enables any software to interact with Roblox instances.
 
 Documentation about the project is hosted at [dom.rojo.space](https://dom.rojo.space).
 
 ## [rbx_dom_weak](rbx_dom_weak)
+
 [![rbx_dom_weak on crates.io](https://img.shields.io/crates/v/rbx_dom_weak.svg)](https://crates.io/crates/rbx_dom_weak)
 [![rbx_dom_weak docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_dom_weak)
 
 Weakly-typed Roblox DOM implementation. Defines types for representing instances and properties on them.
 
 ## [rbx_types](rbx_types)
+
 [![rbx_types on crates.io](https://img.shields.io/crates/v/rbx_types.svg)](https://crates.io/crates/rbx_types)
 [![rbx_types docs](https://img.shields.io/badge/docs-docs.rs-orange.svg)](https://docs.rs/rbx_types)
 
@@ -56,45 +62,50 @@ Command line utility to convert and debug Roblox model files.
 
 Roblox Lua implementation of DOM APIs, allowing Instance reflection from inside Roblox. Uses a data format that's compatible with rbx_dom_weak to facilitate communication with applications outside Roblox about instances.
 
+## Difference from the [original](https://github.com/rojo-rbx/rbx-dom)
+There are changes to this fork that is not included in the original:
+- Implemented [Default](https://doc.rust-lang.org/core/default/trait.Default.html) trait for most objects in [rbx_types](rbx_types) crate
+- Implemented [mlua::UserData](https://docs.rs/mlua/0.8.5/mlua/trait.UserData.html) for embedding Lua in [Ribbon](https://github.com/memothelemo/ribbon).
+
 ## Property Type Coverage
 
-| Property Type           | Example Property                | rbx_types | rbx_dom_lua | rbx_xml | rbx_binary
-|:------------------------|:--------------------------------|:--:|:--:|:--:|:--:|
-| Axes                    | `ArcHandles.Axes`               | ✔ | ✔ | ✔ | ✔ |
-| BinaryString            | `Terrain.MaterialColors`        | ✔ | ➖ | ✔ | ✔ |
-| Bool                    | `Part.Anchored`                 | ✔ | ✔ | ✔ | ✔ |
-| BrickColor              | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
-| CFrame                  | `Camera.CFrame`                 | ✔ | ✔ | ✔ | ✔ |
-| Color3                  | `Lighting.Ambient`              | ✔ | ✔ | ✔ | ✔ |
-| Color3uint8             | `Part.BrickColor`               | ✔ | ✔ | ✔ | ✔ |
-| ColorSequence           | `Beam.Color`                    | ✔ | ✔ | ✔ | ✔ |
-| Content                 | `Decal.Texture`                 | ✔ | ✔ | ✔ | ✔ |
-| Enum                    | `Part.Shape`                    | ✔ | ✔ | ✔ | ✔ |
-| Faces                   | `Handles.Faces`                 | ✔ | ✔ | ✔ | ✔ |
-| Float32                 | `Players.RespawnTime`           | ✔ | ✔ | ✔ | ✔ |
-| Float64                 | `Sound.PlaybackLoudness`        | ✔ | ✔ | ✔ | ✔ |
-| Int32                   | `Frame.ZIndex`                  | ✔ | ✔ | ✔ | ✔ |
-| Int64                   | `Player.UserId`                 | ✔ | ✔ | ✔ | ✔ |
-| NumberRange             | `ParticleEmitter.Lifetime`      | ✔ | ✔ | ✔ | ✔ |
-| NumberSequence          | `Beam.Transparency`             | ✔ | ✔ | ✔ | ✔ |
-| OptionalCoordinateFrame | `Model.WorldPivotData`          | ✔ | ❌ | ✔ | ✔ |
-| PhysicalProperties      | `Part.CustomPhysicalProperties` | ✔ | ✔ | ✔ | ✔ |
-| ProtectedString         | `ModuleScript.Source`           | ✔ | ✔ | ✔ | ✔ |
-| Ray                     | `RayValue.Value`                | ✔ | ✔ | ✔ | ✔ |
-| Rect                    | `ImageButton.SliceCenter`       | ✔ | ✔ | ✔ | ✔ |
-| Ref                     | `Model.PrimaryPart`             | ✔ | ✔ | ✔ | ✔ |
-| Region3                 | N/A                             | ✔ | ✔ | ❌ | ❌ |
-| Region3int16            | `Terrain.MaxExtents`            | ✔ | ✔ | ❌ | ❌ |
-| SharedString            | N/A                             | ✔ | ✔ | ✔ | ✔ |
-| String                  | `Instance.Name`                 | ✔ | ✔ | ✔ | ✔ |
-| UDim                    | `UIListLayout.Padding`          | ✔ | ✔ | ✔ | ✔ |
-| UDim2                   | `Frame.Size`                    | ✔ | ✔ | ✔ | ✔ |
-| Vector2                 | `ImageLabel.ImageRectSize`      | ✔ | ✔ | ✔ | ✔ |
-| Vector2int16            | N/A                             | ✔ | ✔ | ✔ | ❌ |
-| Vector3                 | `Part.Size`                     | ✔ | ✔ | ✔ | ✔ |
-| Vector3int16            | `TerrainRegion.ExtentsMax`      | ✔ | ✔ | ✔ | ✔ |
-| QDir                    | `Studio.Auto-Save Path`         | ⛔ | ⛔ | ⛔ | ⛔ |
-| QFont                   | `Studio.Font`                   | ⛔ | ⛔ | ⛔ | ⛔ |
+| Property Type           | Example Property                | rbx_types | rbx_dom_lua | rbx_xml | rbx_binary |
+| :---------------------- | :------------------------------ | :-------: | :---------: | :-----: | :--------: |
+| Axes                    | `ArcHandles.Axes`               |     ✔     |      ✔      |    ✔    |     ✔      |
+| BinaryString            | `Terrain.MaterialColors`        |     ✔     |     ➖      |    ✔    |     ✔      |
+| Bool                    | `Part.Anchored`                 |     ✔     |      ✔      |    ✔    |     ✔      |
+| BrickColor              | `Part.BrickColor`               |     ✔     |      ✔      |    ✔    |     ✔      |
+| CFrame                  | `Camera.CFrame`                 |     ✔     |      ✔      |    ✔    |     ✔      |
+| Color3                  | `Lighting.Ambient`              |     ✔     |      ✔      |    ✔    |     ✔      |
+| Color3uint8             | `Part.BrickColor`               |     ✔     |      ✔      |    ✔    |     ✔      |
+| ColorSequence           | `Beam.Color`                    |     ✔     |      ✔      |    ✔    |     ✔      |
+| Content                 | `Decal.Texture`                 |     ✔     |      ✔      |    ✔    |     ✔      |
+| Enum                    | `Part.Shape`                    |     ✔     |      ✔      |    ✔    |     ✔      |
+| Faces                   | `Handles.Faces`                 |     ✔     |      ✔      |    ✔    |     ✔      |
+| Float32                 | `Players.RespawnTime`           |     ✔     |      ✔      |    ✔    |     ✔      |
+| Float64                 | `Sound.PlaybackLoudness`        |     ✔     |      ✔      |    ✔    |     ✔      |
+| Int32                   | `Frame.ZIndex`                  |     ✔     |      ✔      |    ✔    |     ✔      |
+| Int64                   | `Player.UserId`                 |     ✔     |      ✔      |    ✔    |     ✔      |
+| NumberRange             | `ParticleEmitter.Lifetime`      |     ✔     |      ✔      |    ✔    |     ✔      |
+| NumberSequence          | `Beam.Transparency`             |     ✔     |      ✔      |    ✔    |     ✔      |
+| OptionalCoordinateFrame | `Model.WorldPivotData`          |     ✔     |     ❌      |    ✔    |     ✔      |
+| PhysicalProperties      | `Part.CustomPhysicalProperties` |     ✔     |      ✔      |    ✔    |     ✔      |
+| ProtectedString         | `ModuleScript.Source`           |     ✔     |      ✔      |    ✔    |     ✔      |
+| Ray                     | `RayValue.Value`                |     ✔     |      ✔      |    ✔    |     ✔      |
+| Rect                    | `ImageButton.SliceCenter`       |     ✔     |      ✔      |    ✔    |     ✔      |
+| Ref                     | `Model.PrimaryPart`             |     ✔     |      ✔      |    ✔    |     ✔      |
+| Region3                 | N/A                             |     ✔     |      ✔      |   ❌    |     ❌     |
+| Region3int16            | `Terrain.MaxExtents`            |     ✔     |      ✔      |   ❌    |     ❌     |
+| SharedString            | N/A                             |     ✔     |      ✔      |    ✔    |     ✔      |
+| String                  | `Instance.Name`                 |     ✔     |      ✔      |    ✔    |     ✔      |
+| UDim                    | `UIListLayout.Padding`          |     ✔     |      ✔      |    ✔    |     ✔      |
+| UDim2                   | `Frame.Size`                    |     ✔     |      ✔      |    ✔    |     ✔      |
+| Vector2                 | `ImageLabel.ImageRectSize`      |     ✔     |      ✔      |    ✔    |     ✔      |
+| Vector2int16            | N/A                             |     ✔     |      ✔      |    ✔    |     ❌     |
+| Vector3                 | `Part.Size`                     |     ✔     |      ✔      |    ✔    |     ✔      |
+| Vector3int16            | `TerrainRegion.ExtentsMax`      |     ✔     |      ✔      |    ✔    |     ✔      |
+| QDir                    | `Studio.Auto-Save Path`         |    ⛔     |     ⛔      |   ⛔    |     ⛔     |
+| QFont                   | `Studio.Font`                   |    ⛔     |     ⛔      |   ⛔    |     ⛔     |
 
 ✔ Implemented | ❌ Unimplemented | ➖ Partially Implemented | ⛔ Never
 

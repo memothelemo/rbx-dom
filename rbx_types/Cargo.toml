@@ -10,11 +10,23 @@ homepage = "https://github.com/rojo-rbx/rbx-dom"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+mlua = ["hex"]
+lua54_impl = ["mlua/lua54"]
+lua53_impl = ["mlua/lua53"]
+lua52_impl = ["mlua/lua52"]
+lua51_impl = ["mlua/lua51"]
+luajit_impl = ["mlua/luajit"]
+luajit52_impl = ["mlua/luajit52"]
+luau_impl = ["mlua/luau"]
+
 [dependencies]
 base64 = "0.13.0"
 blake3 = "1.3.1"
 bitflags = "1.3.2"
+hex = { version = "0.4.3", optional = true }
 lazy_static = "1.4.0"
+mlua = { version = "0.8.5", optional = true }
 rand = "0.8.5"
 thiserror = "1.0.31"
 serde = { version = "1.0.137", features = ["derive"], optional = true }

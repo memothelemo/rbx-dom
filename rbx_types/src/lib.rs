@@ -17,6 +17,8 @@ mod shared_string;
 mod tags;
 mod variant;
 
+pub(crate) mod utils;
+
 pub use attributes::*;
 pub use axes::*;
 pub use basic_types::*;
